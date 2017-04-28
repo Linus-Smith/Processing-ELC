@@ -32,10 +32,10 @@ public class RandomGaussian extends PApplet {
 		
 		noStroke();
 		fill(255, 10);
-		ellipse(x, 180, 16, 1);
+		ellipse(x, 180, 160, 160);
 	}
 	
 	public static void main(String[] argc) {
-		PApplet.main("DanielShiffman.RandomGaussian");
+		PApplet.main("DanielShiffman.a1.RandomGaussian");
 	}
 }

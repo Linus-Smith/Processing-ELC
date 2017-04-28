@@ -17,12 +17,12 @@ public class Perline extends PApplet {
 	public void draw() {
 		float n = noise(t);
 		float x = map(n , 0, 1, 0, width);
-		ellipse(x, 180, 16, 16);
+		ellipse(x, 480, 40, 40);
 		t += 0.01;
 	}
 	
 	public static void main(String[] args) {
-		PApplet.main("DanielShiffman.Perline");
+		PApplet.main("DanielShiffman.a1.Perline");
 	}
 
 }
