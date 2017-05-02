@@ -13,14 +13,12 @@ public class Trackball extends PApplet{
 	
 	@Override
 	public void settings() {
-		// TODO Auto-generated method stub
 		super.settings();
 		size(1500, 1500);
 	}
 	
 	@Override
 	public void setup() {
-		// TODO Auto-generated method stub
 		super.setup();
 		smooth();
 		mover = new Mover();
@@ -81,6 +79,9 @@ public class Trackball extends PApplet{
 	
 	
 	public static void main (String[] argc) {
+		for(int i = 0; i < 100; i++) {
+			System.out.println((i % 50 )+"==========22");
+		}
 		PApplet.main("DanielShiffman.a2.Trackball");
 	}
 }
