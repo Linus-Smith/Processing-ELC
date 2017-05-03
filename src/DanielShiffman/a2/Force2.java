@@ -6,6 +6,7 @@ import processing.core.PVector;
 public class Force2 extends PApplet {
 
 	Mover[] movers = new Mover[100];
+	Liquid mLiquid;
 	
 	@Override
 	public void settings() {
@@ -18,6 +19,7 @@ public class Force2 extends PApplet {
 	public void setup() {
 		// TODO Auto-generated method stub
 		super.setup();
+		mLiquid = new Liquid(0, height / 2, width, height / 2 , -.1f);
 		for(int i = 0; i < movers.length; i++) {
 	    	movers[i] = new Mover(random(0.1f, 5f), 0, 0);
 		}
@@ -31,12 +33,15 @@ public class Force2 extends PApplet {
 		PVector graviry = new PVector(0f, 0.1f);
 		
 		for(int i = 0; i < movers.length; i++) {
-			float c =0.11f;  //摩擦力
+			float c =0.001f;  //摩擦力
 			PVector friction = movers[i].velocity.get();
 			friction.mult(-1f);
 			friction.normalize();
 			friction.mult(c);
 			movers[i].applyForce(friction);
+//			if(movers[i].isInside(mLiquid)){
+//				movers[i].drag(mLiquid);
+//			}
 			movers[i].applyForce(wind);
 			movers[i].applyForce(graviry);
 			
@@ -63,6 +68,26 @@ public class Force2 extends PApplet {
 		void applyForce(PVector force) { //牛顿第二定律  F = M * A    A = F \ M 
 			  PVector f = PVector.div(force, mass);  //将力除以质量，再加上加速度
 			  acceleration.add(f);
+		}
+		
+		boolean isInside(Liquid i) {
+			if(location.x > i.x && location.x < i.x + i.w && location.y > i.y && location.y < i.y + i.h) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		
+		void drag(Liquid i) {
+			float speed = velocity.mag();
+			float drawMagnitude = i.c * speed * speed;
+			
+			PVector drag = velocity.get();
+			
+			drag.mult(-1);
+			drag.normalize();
+			drag.mult(drawMagnitude);
+			applyForce(drag);
 		}
 		
 		void update() {
@@ -96,6 +121,25 @@ public class Force2 extends PApplet {
 				velocity.y *= - 1;
 				location.y = 0;
 			}
+		}
+	}
+	
+	class Liquid {
+		float x, y, w, h;
+		float c;
+		
+		Liquid(float x_, float y_, float w_, float h_, float c_) {
+			x = x_;
+			y = y_;
+			w = w_;
+			h = h_;
+			c = c_;
+		}
+		
+		void display() {
+			noStroke();
+			fill(175);
+			rect(x, y, w, h);
 		}
 	}
 	
